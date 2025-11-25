@@ -1,0 +1,62 @@
+# Frontend Setup - REST Client Test
+
+## Register User
+POST http://localhost:5057/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+###
+
+## Login
+POST http://localhost:5057/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+###
+
+## Get Books (behöver token från login)
+GET http://localhost:5057/api/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdHVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiZmZkYmI5MzMtYjc0YS00MjYxLWFkYjgtNzkzOWJmZjU3MzVkIiwiZXhwIjoxNzY0MTY0ODUxLCJpc3MiOiJCb29rQXBpIiwiYXVkIjoiQm9va0FwaVVzZXJzIn0.bogvBF2cteITZ5ikVxomhNq0fbDXPLUWSHc9AXqZgW0
+
+###
+
+## Create Book
+POST http://localhost:5057/api/books
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdHVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiZmZkYmI5MzMtYjc0YS00MjYxLWFkYjgtNzkzOWJmZjU3MzVkIiwiZXhwIjoxNzY0MTY0ODUxLCJpc3MiOiJCb29rQXBpIiwiYXVkIjoiQm9va0FwaVVzZXJzIn0.bogvBF2cteITZ5ikVxomhNq0fbDXPLUWSHc9AXqZgW0
+
+{
+  "title": "Test Book",
+  "author": "Test Author",
+  "publishedYear": 2023,
+  "genre": "Fiction"
+}
+
+###
+
+## Get Quotes
+GET http://localhost:5057/api/quotes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdHVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiZmZkYmI5MzMtYjc0YS00MjYxLWFkYjgtNzkzOWJmZjU3MzVkIiwiZXhwIjoxNzY0MTY0ODUxLCJpc3MiOiJCb29rQXBpIiwiYXVkIjoiQm9va0FwaVVzZXJzIn0.bogvBF2cteITZ5ikVxomhNq0fbDXPLUWSHc9AXqZgW0
+
+###
+
+## Create Quote (Använd bookId från Create Book response)
+POST http://localhost:5057/api/quotes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdHVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiZmZkYmI5MzMtYjc0YS00MjYxLWFkYjgtNzkzOWJmZjU3MzVkIiwiZXhwIjoxNzY0MTY0ODUxLCJpc3MiOiJCb29rQXBpIiwiYXVkIjoiQm9va0FwaVVzZXJzIn0.bogvBF2cteITZ5ikVxomhNq0fbDXPLUWSHc9AXqZgW0
+
+{
+  "text": "This is a test quote",
+  "author": "Test Author",
+  "pageNumber": 42,
+  "bookId": 1
+}
