@@ -12,12 +12,12 @@ export class AuthService {
   private platformId = inject(PLATFORM_ID);
   private apiUrl = 'http://localhost:5057/api/auth'; 
   
-  // Signal för att hålla koll på inloggad användare
+  // Signal to track logged in user
   currentUser = signal<User | null>(null);
   isAuthenticated = signal<boolean>(false);
 
   constructor() {
-    // Kontrollera om användare är inloggad vid start (endast i webbläsaren)
+    // Check if user is logged in on startup (only in browser)
     if (isPlatformBrowser(this.platformId)) {
       this.checkAuthStatus();
     }
@@ -56,9 +56,15 @@ export class AuthService {
   private handleAuthSuccess(response: AuthResponse): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(response.user));
+      
+      // Create user object from response
+      const user: User = {
+        username: response.username,
+        email: response.email
+      };
+      localStorage.setItem('user', JSON.stringify(user));
+      this.currentUser.set(user);
     }
-    this.currentUser.set(response.user);
     this.isAuthenticated.set(true);
   }
 

@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Dark mode styles */
+[data-bs-theme="dark"] {
+  .card {
+    background-color: #2c3034;
+    border-color: #495057;
+  }
+  
+  .card-header {
+    background-color: #343a40 !important;
+    border-bottom-color: #495057 !important;
+  }
+  
+  .card-title,
+  h1, h2, h3, h4, h5, h6 {
+    color: #f8f9fa !important;
+  }
+  
+  .card-text,
+  p, span, label {
+    color: #dee2e6;
+  }
+  
+  .text-muted {
+    color: #adb5bd !important;
+  }
+}

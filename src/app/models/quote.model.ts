@@ -17,5 +17,6 @@ export interface CreateQuoteRequest {
 export interface UpdateQuoteRequest {
   text?: string;
   author?: string;
+  pageNumber?: number;
   bookId?: number;
 }

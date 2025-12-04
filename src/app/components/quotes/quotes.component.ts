@@ -1,175 +1,124 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { QuoteService } from '../../services/quote.service';
 import { AuthService } from '../../services/auth.service';
 import { Quote } from '../../models/quote.model';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { AddQuoteModalComponent } from '../add-quote-modal/add-quote-modal.component';
+import { EditQuoteModalComponent } from '../edit-quote-modal/edit-quote-modal.component';
+import { FormsModule } from '@angular/forms';
+
+ //Quotes component that displays all quotes with CRUD functionality
+ // Uses same navbar as books component
+ // Bootstrap styling for consistent appearance
+ // Add Quote modal for adding new quotes
 
 @Component({
   selector: 'app-quotes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent, AddQuoteModalComponent, EditQuoteModalComponent, FormsModule],
   template: `
-    <div class="quotes-container">
-      <header class="header">
-        <h1>Citat</h1>
-        <div class="user-info">
-          <span>Välkommen, {{ authService.currentUser()?.username }}</span>
-          <button (click)="logout()" class="btn-logout">Logga ut</button>
-        </div>
-      </header>
+    <!-- Navbar överst -->
+    <app-navbar></app-navbar>
 
-      <div class="content">
-        <div class="actions">
-          <button class="btn-primary">+ Lägg till citat</button>
+    <div class="container-fluid py-4">
+      <div class="row mb-4">
+        <div class="col">
+          <div class="d-flex justify-content-between align-items-center">
+            <h1 class="mb-0">
+              <i class="fas fa-quote-left me-2 text-primary"></i>
+              Mina Citat
+            </h1>
+            <button 
+              class="btn btn-primary btn-lg"
+              data-bs-toggle="modal"
+              data-bs-target="#addQuoteModal"
+            >
+              <i class="fas fa-plus me-2"></i>
+              Lägg till citat
+            </button>
+          </div>
         </div>
+      </div>
 
-        <div class="quotes-list" *ngIf="quotes.length > 0; else noQuotes">
-          <div class="quote-card" *ngFor="let quote of quotes">
-            <p class="quote-text">"{{ quote.text }}"</p>
-            <p class="quote-author">— {{ quote.author }}</p>
-            <div class="card-actions">
-              <button class="btn-edit">Redigera</button>
-              <button class="btn-delete">Ta bort</button>
+      <div class="row" *ngIf="quotes().length > 0; else noQuotes">
+        <div class="col-lg-6 mb-4" *ngFor="let quote of quotes()">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p class="quote-text">
+                  <i class="fas fa-quote-left text-muted me-2"></i>
+                  {{ quote.text }}
+                  <i class="fas fa-quote-right text-muted ms-2"></i>
+                </p>
+                <footer class="blockquote-footer mt-3">
+                  <i class="fas fa-user me-1"></i>
+                  {{ quote.author }}
+                  <span *ngIf="quote.pageNumber" class="ms-2">
+                    <i class="fas fa-bookmark me-1"></i>
+                    Sida {{ quote.pageNumber }}
+                  </span>
+                </footer>
+              </blockquote>
+            </div>
+            <div class="card-footer bg-transparent">
+              <div class="btn-group w-100">
+                <button class="btn btn-outline-warning" (click)="openEditModal(quote)">
+                  <i class="fas fa-edit"></i>
+                  Redigera
+                </button>
+                <button class="btn btn-outline-danger" (click)="deleteQuote(quote.id)">
+                  <i class="fas fa-trash"></i>
+                  Ta bort
+                </button>
+              </div>
             </div>
           </div>
         </div>
-
-        <ng-template #noQuotes>
-          <div class="empty-state">
-            <p>Inga citat än. Lägg till ditt första citat!</p>
-          </div>
-        </ng-template>
       </div>
+
+      <ng-template #noQuotes>
+        <div class="row">
+          <div class="col text-center py-5">
+            <div class="empty-state">
+              <i class="fas fa-quote-left fa-3x text-muted mb-3"></i>
+              <h3 class="text-muted">Inga citat än</h3>
+              <p class="text-muted mb-4">Spara dina favoritcitat här!</p>
+              <button 
+                class="btn btn-primary btn-lg"
+                data-bs-toggle="modal"
+                data-bs-target="#addQuoteModal"
+              >
+                <i class="fas fa-plus me-2"></i>
+                Lägg till första citatet
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </div>
+
+    <!-- Modal for adding quotes -->
+    <app-add-quote-modal (quoteAdded)="onQuoteAdded()"></app-add-quote-modal>
+    
+    <!-- Modal for editing quotes -->
+    <app-edit-quote-modal (quoteUpdated)="onQuoteUpdated()"></app-edit-quote-modal>
   `,
   styles: [`
-    .quotes-container {
-      min-height: 100vh;
-      background-color: #f5f5f5;
-    }
-
-    .header {
-      background: white;
-      padding: 20px 40px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    h1 {
-      margin: 0;
-      color: #333;
-    }
-
-    .user-info {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .btn-logout {
-      padding: 8px 16px;
-      background-color: #dc3545;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .btn-logout:hover {
-      background-color: #c82333;
-    }
-
-    .content {
-      padding: 40px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .actions {
-      margin-bottom: 30px;
-    }
-
-    .btn-primary {
-      padding: 12px 24px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background-color: #0056b3;
-    }
-
-    .quotes-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .quote-card {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
     .quote-text {
-      font-size: 18px;
-      color: #333;
-      margin: 0 0 15px 0;
+      font-size: 1.1rem;
       line-height: 1.6;
       font-style: italic;
     }
 
-    .quote-author {
-      color: #666;
-      margin: 0 0 15px 0;
-      text-align: right;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-    }
-
-    .btn-edit, .btn-delete {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .btn-edit {
-      background-color: #28a745;
-      color: white;
-    }
-
-    .btn-edit:hover {
-      background-color: #218838;
-    }
-
-    .btn-delete {
-      background-color: #dc3545;
-      color: white;
-    }
-
-    .btn-delete:hover {
-      background-color: #c82333;
-    }
-
     .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: #666;
-      font-size: 18px;
+      padding: 3rem;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      transition: transform 0.2s ease-in-out;
     }
   `]
 })
@@ -178,21 +127,68 @@ export class QuotesComponent implements OnInit {
   authService = inject(AuthService);
   private router = inject(Router);
 
-  quotes: Quote[] = [];
+  quotes = signal<Quote[]>([]);
+  isLoading = false;
+  errorMessage = '';
+
+  @ViewChild(EditQuoteModalComponent) editModal!: EditQuoteModalComponent;
 
   ngOnInit(): void {
     this.loadQuotes();
   }
 
+   // Loads all quotes from backend
+
   loadQuotes(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
     this.quoteService.getAllQuotes().subscribe({
-      next: (quotes) => {
-        this.quotes = quotes;
+      next: (quotes: Quote[]) => {
+        this.quotes.set(quotes);
+        this.isLoading = false;
       },
-      error: (error) => {
-        console.error('Kunde inte ladda citat:', error);
+      error: (error: any) => {
+        this.isLoading = false;
+        this.errorMessage = 'Kunde inte ladda citat. Kontrollera din internetanslutning.';
+        console.error('Error loading quotes:', error);
       }
     });
+  }
+
+   // Event handler when a new quote is added
+  
+  onQuoteAdded(): void {
+    this.loadQuotes(); 
+    // Reload the list
+  }
+    // Opens edit modal for selected quote
+  openEditModal(quote: Quote): void {
+    this.editModal.openModal(quote);
+  }
+
+ 
+
+   // Event handler when a quote is updated
+   
+  onQuoteUpdated(): void {
+    this.loadQuotes();
+     // Reload the list
+  }
+
+  // Deletes a quote
+  deleteQuote(quoteId: number): void {
+    if (confirm('Är du säker på att du vill ta bort detta citat?')) {
+      this.quoteService.deleteQuote(quoteId).subscribe({
+        next: () => {
+          this.loadQuotes();
+        },
+        error: (error) => {
+          this.errorMessage = 'Kunde inte ta bort citat. Försök igen.';
+          console.error('Error deleting quote:', error);
+        }
+      });
+    }
   }
 
   logout(): void {

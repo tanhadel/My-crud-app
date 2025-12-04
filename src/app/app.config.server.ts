@@ -3,6 +3,10 @@ import { provideServerRendering, withRoutes } from '@angular/ssr';
 import { appConfig } from './app.config';
 import { serverRoutes } from './app.routes.server';
 
+
+  //Server-specific application configuration
+ // Configures SSR (Server-Side Rendering) with server routes
+ 
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(withRoutes(serverRoutes))

@@ -1,59 +1,39 @@
-# MyCrudApp
+ MyCrudApp - BookStore
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
+En fullstack-applikation för att hantera böcker och citat byggd med Angular 21 och .NET 9.
 
-## Development server
+ Beskrivning
 
-To start a local development server, run:
+BookStore är en modern CRUD-applikation som låter användare hantera sin personliga boksamling och sparade citat. Applikationen har autentisering, användarspecifik data och stöd för både light/dark mode.
 
-```bash
-ng serve
-```
+Funktioner
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Frontend (Angular 21)
+Autentisering: Registrering och inloggning med JWT-tokens
+Bokhantering: Skapa, läsa, uppdatera och ta bort böcker (CRUD)
+Citathantering: Spara och hantera favoritcitat från böcker
+Dark Mode: Toggle mellan ljust och mörkt tema med localStorage-persistering
+Responsiv design: Fungerar på desktop, tablet och mobil
+Användarspecifik data: Varje användare ser endast sina egna böcker och citat
+Modern UI: Bootstrap 5.3 med Font Awesome-ikoner
 
-## Code scaffolding
+Teknisk stack (Frontend)
+Framework: Angular 21 med standalone components
+State Management: Signals (Angular's nya reaktiva primitiv)
+  - Används i `AuthService` för `currentUser` och `isAuthenticated`
+  - Används i `ThemeService` för `isDarkMode`
+  - Används i komponenter för att spåra böcker, citat och modal-tillstånd
+  - Automatisk UI-uppdatering när data ändras
+Routing: Angular Router med route guards (`auth.guard.ts`)
+HTTP: HttpClient med interceptors för JWT-tokens (`auth.interceptor.ts`)
+Styling: Bootstrap 5.3.0 + CSS med dark mode-stöd
+Ikoner: Font Awesome 6.4.0
+SSR: Server-Side Rendering stöd
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Backend (.NET 9)
+- RESTful API med Entity Framework Core
+- JWT-baserad autentisering
+- InMemory-databas 
+- CORS-konfigurerad för Angular frontend
 
-```bash
-ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

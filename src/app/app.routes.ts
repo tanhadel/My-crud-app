@@ -1,6 +1,10 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 
+
+ // Application routing configuration
+ // Defines all routes with lazy loading and authentication guards
+ 
 export const routes: Routes = [
   {
     path: '',
