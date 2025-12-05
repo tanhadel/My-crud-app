@@ -1,19 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Light mode styles - för att säkerställa bra kontrast */
-h1, h2, h3, h4, h5, h6 {
-  color: #212529 !important;
-}
-
-label {
-  color: #495057 !important;
-}
-
+/* Super strong selectors to override component styles */
+body h1, body h2, body h3, body h4, body h5, body h6,
+.login-card h1, .login-card h2, .login-card h3, .login-card h4, .login-card h5, .login-card h6,
+.register-card h1, .register-card h2, .register-card h3, .register-card h4, .register-card h5, .register-card h6,
 .card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
   color: #212529 !important;
 }
 
-.card label {
+body label,
+.login-card label,
+.register-card label,
+.card label,
+.form-group label {
   color: #495057 !important;
 }
 

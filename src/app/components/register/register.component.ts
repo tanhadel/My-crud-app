@@ -110,6 +110,7 @@ import { AuthService } from '../../services/auth.service';
     h2 {
       margin: 0 0 30px 0;
       text-align: center;
+      color: #333;
     }
 
     .form-group {
@@ -119,6 +120,7 @@ import { AuthService } from '../../services/auth.service';
     label {
       display: block;
       margin-bottom: 5px;
+      color: #555;
       font-weight: 500;
     }
 
