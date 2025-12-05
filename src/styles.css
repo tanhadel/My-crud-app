@@ -1,5 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Light mode styles - för att säkerställa bra kontrast */
+h1, h2, h3, h4, h5, h6 {
+  color: #212529;
+}
+
+label {
+  color: #495057;
+}
+
 /* Dark mode styles */
 [data-bs-theme="dark"] {
   /* Background för hela sidan */
