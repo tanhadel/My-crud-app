@@ -83,7 +83,7 @@ import { AuthService } from '../../services/auth.service';
         </form>
 
         <p class="login-link">
-          Har du redan ett konto? <a routerLink="/login">Logga in här</a>
+          Har du redan ett konto? <a routerLink="/login" style="color: #007bff !important;">Logga in här</a>
         </p>
       </div>
     </div>
