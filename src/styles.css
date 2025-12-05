@@ -82,5 +82,31 @@
   a:hover {
     color: #3399ff !important;
   }
+  
+  /* Login/Register cards */
+  .login-card,
+  .register-card {
+    background-color: #2c3034 !important;
+    border-color: #495057 !important;
+  }
+  
+  .login-container,
+  .register-container {
+    background-color: #1a1d21 !important;
+  }
+  
+  /* Input fields in login/register */
+  .login-card input,
+  .register-card input {
+    background-color: #495057 !important;
+    border-color: #6c757d !important;
+    color: #f8f9fa !important;
+  }
+  
+  .login-card input:focus,
+  .register-card input:focus {
+    background-color: #5a6268 !important;
+    border-color: #80bdff !important;
+  }
 
 }

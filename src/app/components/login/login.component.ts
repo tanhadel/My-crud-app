@@ -53,7 +53,7 @@ import { AuthService } from '../../services/auth.service';
           </button>
         </form>
 
-        <p class="register-link">
+        <p class="register-link" style="color: #495057 !important;">
           Har du inget konto? <a routerLink="/register" style="color: #007bff !important;">Registrera dig här</a>
         </p>
       </div>

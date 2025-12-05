@@ -82,7 +82,7 @@ import { AuthService } from '../../services/auth.service';
           </button>
         </form>
 
-        <p class="login-link">
+        <p class="login-link" style="color: #495057 !important;">
           Har du redan ett konto? <a routerLink="/login" style="color: #007bff !important;">Logga in här</a>
         </p>
       </div>
