@@ -12,7 +12,7 @@ import { Book, CreateBookRequest, UpdateBookRequest } from '../models/book.model
 })
 export class BookService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5057/api/books'; 
+  private apiUrl = 'https://my-crud-app-backend-production.up.railway.app/api/books'; 
   
   
    // Retrieves all books from the API

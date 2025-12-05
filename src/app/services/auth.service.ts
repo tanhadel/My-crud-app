@@ -10,7 +10,7 @@ import { AuthResponse, LoginRequest, RegisterRequest, User } from '../models/use
 export class AuthService {
   private http = inject(HttpClient);
   private platformId = inject(PLATFORM_ID);
-  private apiUrl = 'http://localhost:5057/api/auth'; 
+  private apiUrl = 'https://my-crud-app-backend-production.up.railway.app/api/auth'; 
   
   // Signal to track logged in user
   currentUser = signal<User | null>(null);

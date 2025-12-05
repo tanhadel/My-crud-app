@@ -12,7 +12,7 @@ import { Quote, CreateQuoteRequest, UpdateQuoteRequest } from '../models/quote.m
 })
 export class QuoteService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5057/api/quotes'; 
+  private apiUrl = 'https://my-crud-app-backend-production.up.railway.app/api/quotes'; 
   
   
    // Retrieves all quotes from the API
