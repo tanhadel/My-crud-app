@@ -19,6 +19,25 @@
       }
     })();
   </script>
+  <!-- Critical CSS to prevent text flash during load -->
+  <style>
+    /* Ensure text is visible during initial load */
+    h1, h2, h3, h4, h5, h6 {
+      color: #212529;
+    }
+    label {
+      color: #495057;
+    }
+    [data-bs-theme="dark"] h1,
+    [data-bs-theme="dark"] h2,
+    [data-bs-theme="dark"] h3,
+    [data-bs-theme="dark"] h4,
+    [data-bs-theme="dark"] h5,
+    [data-bs-theme="dark"] h6,
+    [data-bs-theme="dark"] label {
+      color: #dee2e6;
+    }
+  </style>
 </head>
 <body>
   <app-root></app-root>
