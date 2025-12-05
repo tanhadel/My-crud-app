@@ -95,6 +95,19 @@
     background-color: #1a1d21 !important;
   }
   
+  /* Titles and labels in dark mode - override inline styles */
+  .login-card h2,
+  .register-card h2 {
+    color: #f8f9fa !important;
+  }
+  
+  .login-card label,
+  .register-card label,
+  .login-link,
+  .register-link {
+    color: #dee2e6 !important;
+  }
+  
   /* Input fields in login/register */
   .login-card input,
   .register-card input {
