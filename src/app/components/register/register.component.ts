@@ -11,11 +11,11 @@ import { AuthService } from '../../services/auth.service';
   template: `
     <div class="register-container">
       <div class="register-card">
-        <h2>Registrera dig</h2>
+        <h2 style="color: #212529 !important;">Registrera dig</h2>
         
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="username">Användarnamn</label>
+            <label for="username" style="color: #495057 !important;">Användarnamn</label>
             <input 
               id="username"
               type="text" 
@@ -29,7 +29,7 @@ import { AuthService } from '../../services/auth.service';
           </div>
 
           <div class="form-group">
-            <label for="email">E-post</label>
+            <label for="email" style="color: #495057 !important;">E-post</label>
             <input 
               id="email"
               type="email" 
@@ -43,7 +43,7 @@ import { AuthService } from '../../services/auth.service';
           </div>
 
           <div class="form-group">
-            <label for="password">Lösenord</label>
+            <label for="password" style="color: #495057 !important;">Lösenord</label>
             <input 
               id="password"
               type="password" 
@@ -57,7 +57,7 @@ import { AuthService } from '../../services/auth.service';
           </div>
 
           <div class="form-group">
-            <label for="confirmPassword">Bekräfta lösenord</label>
+            <label for="confirmPassword" style="color: #495057 !important;">Bekräfta lösenord</label>
             <input 
               id="confirmPassword"
               type="password" 
