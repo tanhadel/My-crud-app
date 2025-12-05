@@ -19,10 +19,28 @@
   
   .card-text,
   p, span, label {
-    color: #dee2e6;
+    color: #dee2e6 !important;
   }
   
   .text-muted {
+    color: #adb5bd !important;
+  }
+  
+  /* Form inputs in dark mode */
+  .form-control {
+    background-color: #495057 !important;
+    border-color: #6c757d !important;
+    color: #f8f9fa !important;
+  }
+  
+  .form-control:focus {
+    background-color: #5a6268 !important;
+    border-color: #80bdff !important;
+    color: #f8f9fa !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .form-control::placeholder {
     color: #adb5bd !important;
   }
 }
